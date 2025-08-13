@@ -1,6 +1,6 @@
 ## Sprint 1 - Modulo Autor 
 # Funcionalidades 
-- []Cadastro de autores
+- [X]Cadastro de autores
 - []Listagem de autores (com paginação)
 - []Busca por autor específico
 - []Atualização de dados do autor
