@@ -1,35 +1,38 @@
-import express from "express"
-import cors from "cors"
-import {conn} from "./config/sequelize.js";
+import express from "express";
+import cors from "cors";
+import { conn } from "./config/sequelize.js";
 
+//Tabelas
+import './models/associations.js'
 
-//Tabelas 
-import autorModel from "./models/autorModel.js";
-
-// Rotas 
+//Rotas
 import autorRoutes from "./routes/autorRoutes.js"
+import livroRoutes from "./routes/livroRoutes.js"
 
-const app = express()
+const app = express();
 
-app.use(cors({
+app.use(
+  cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true
-}))
-app.use(express.json())
+    credentials: true,
+  })
+);
+app.use(express.json());
 
 conn
-    .sync()
-    .then(()=>{
-        console.log("Banco de dados conectado ")
-    })
-    .catch((error)=> console.log(error))
+  .sync()
+  .then(() => {
+    console.log("Banco de dados conectado 😎");
+  })
+  .catch((error) => console.log(error));
 
-//Utilizando a rota 
-app.use("/api", autorRoutes)
-app.get("/", (request, response)=>{
-    response.status(200).json({mensagem: "Olá, Mundo"})
-})
+//Usando as rotas
+app.use("/api/autores", autorRoutes)
+app.use("/api/livros", livroRoutes);
+
+app.get("/", (request, response) => {
+  response.status(200).json({ mensagem: "Olá, Mundo" });
+});
 
 export default app;
-
